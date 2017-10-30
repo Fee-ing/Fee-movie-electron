@@ -1,0 +1,12 @@
+.DS_Store
+app/dist/*
+build/node_modules/
+build/installer/
+build/fileSystem-*
+coverage
+node_modules/
+npm-debug.log
+npm-debug.log.*
+thumbs.db
+!.gitkeep
+app/src/main/.env
