@@ -6,7 +6,7 @@
           <select class="search-select" v-model="searchType">
             <option value="1">默认搜索</option>
             <option value="2">韩饭搜索</option>
-            <option value="3">老司机搜索</option>
+            <!-- <option value="3">老司机搜索</option> -->
           </select>
           <input type="text" name="keywords" class="search-input flex1" placeholder="想看什么就搜一搜吧" v-model="keywords">
           <a class="search-btn centerVertical" @click="searchOpt">搜索</a>

@@ -5,7 +5,7 @@ const path = require('path')
 let config = {
   // Name of electron app
   // Will be used in production builds
-  name: 'fileSystem',
+  name: 'FeeMovie',
 
   // Use ESLint (extends `standard`)
   // Further changes can be made in `.eslintrc.js`
@@ -24,8 +24,8 @@ let config = {
     ignore: /\b(src|index\.ejs|icons)\b/,
     out: path.join(__dirname, 'build'),
     overwrite: true,
-    // versionStringCompanyName: 'fileSystem',
-    // versionStringProductName: 'fileSystem',
+    // versionStringCompanyName: 'FeeMovie',
+    // versionStringProductName: 'FeeMovie',
     platform: process.env.PLATFORM_TARGET || 'all'
   }
 }

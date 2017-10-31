@@ -2,7 +2,7 @@
 app/dist/*
 build/node_modules/
 build/installer/
-build/fileSystem-*
+build/FeeMovie-*
 coverage
 node_modules/
 npm-debug.log
