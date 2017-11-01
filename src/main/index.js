@@ -24,13 +24,15 @@ function createWindow () {
     width: 1100,
     useContentSize: true,
     // transparent: true,
-    frame: false,
+    frame: true,
     resizable: false,
     fullscreen: false,
     fullscreenable: false,
     webPreferences: {
-      webSecurity: false,
-      devTools: true
+      webSecurity: true,
+      allowRunningInsecureContent: true,
+      devTools: true,
+      plugins: true
     }
   })
 
