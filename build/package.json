@@ -1,9 +1,0 @@
-{
-  "name": "Fee-movie",
-  "version": "1.0.0",
-  "description": "桌面版Fee-movie",
-  "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-electron-installer": "^2.1.0"
-  }
-}
