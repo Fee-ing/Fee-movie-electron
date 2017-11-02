@@ -2,7 +2,6 @@
 
 > 桌面版Fee-movie
 
-
 ## Build Setup
 
 ``` bash
