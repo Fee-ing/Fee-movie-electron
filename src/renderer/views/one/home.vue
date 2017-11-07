@@ -5,7 +5,7 @@
       <template v-for="item in homeData.movieHotData">
         <a class="block-item block-item1" :title="item.title" @click="goDetail(item.href)">
           <div class="item-poster equalHeight">
-            <img :src="item.poster">
+            <img v-lazy="item.poster">
           </div>
           <h4 class="item-title">{{item.title}}</h4>
           <h5 class="item-subTitle">{{item.subTitle}}</h5>
@@ -17,7 +17,7 @@
       <template v-for="item in homeData.tvHotData">
         <a class="block-item block-item1" :title="item.title" @click="goDetail(item.href)">
           <div class="item-poster equalHeight">
-            <img :src="item.poster">
+            <img v-lazy="item.poster">
           </div>
           <h4 class="item-title">{{item.title}}</h4>
           <h5 class="item-subTitle">{{item.subTitle}}</h5>
@@ -29,7 +29,7 @@
       <template v-for="item in homeData.varietyHotData">
         <a class="block-item block-item1" :title="item.title" @click="goDetail(item.href)">
           <div class="item-poster equalHeight">
-            <img :src="item.poster">
+            <img v-lazy="item.poster">
           </div>
           <h4 class="item-title">{{item.title}}</h4>
           <h5 class="item-subTitle">{{item.subTitle}}</h5>
@@ -41,7 +41,7 @@
       <template v-for="item in homeData.comicHotData">
         <a class="block-item block-item1" :title="item.title" @click="goDetail(item.href)">
           <div class="item-poster equalHeight">
-            <img :src="item.poster">
+            <img v-lazy="item.poster">
           </div>
           <h4 class="item-title">{{item.title}}</h4>
           <h5 class="item-subTitle">{{item.subTitle}}</h5>
@@ -53,7 +53,7 @@
       <template v-for="item in homeData.movieData">
         <a class="block-item block-item1" :title="item.title" @click="goDetail(item.href)">
           <div class="item-poster equalHeight">
-            <img :src="item.poster">
+            <img v-lazy="item.poster">
           </div>
           <h4 class="item-title">{{item.title}}</h4>
           <h5 class="item-subTitle">{{item.subTitle}}</h5>
@@ -65,7 +65,7 @@
       <template v-for="item in homeData.tvData">
         <a class="block-item block-item1" :title="item.title" @click="goDetail(item.href)">
           <div class="item-poster equalHeight">
-            <img :src="item.poster">
+            <img v-lazy="item.poster">
           </div>
           <h4 class="item-title">{{item.title}}</h4>
           <h5 class="item-subTitle">{{item.subTitle}}</h5>
@@ -77,7 +77,7 @@
       <template v-for="item in homeData.varietyData">
         <a class="block-item block-item1" :title="item.title" @click="goDetail(item.href)">
           <div class="item-poster equalHeight">
-            <img :src="item.poster">
+            <img v-lazy="item.poster">
           </div>
           <h4 class="item-title">{{item.title}}</h4>
           <h5 class="item-subTitle">{{item.subTitle}}</h5>
@@ -89,7 +89,7 @@
       <template v-for="item in homeData.comicData">
         <a class="block-item block-item1" :title="item.title" @click="goDetail(item.href)">
           <div class="item-poster equalHeight">
-            <img :src="item.poster">
+            <img v-lazy="item.poster">
           </div>
           <h4 class="item-title">{{item.title}}</h4>
           <h5 class="item-subTitle">{{item.subTitle}}</h5>

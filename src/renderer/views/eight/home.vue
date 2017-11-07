@@ -4,7 +4,7 @@
       <template v-for="item in homeData.movieData">
         <a class="block-item block-item2" :title="item.title" @click="goDetail(item.href)">
           <div class="item-poster equalHeight">
-            <img :src="item.poster">
+            <img v-lazy="item.poster">
           </div>
           <h4 class="item-title item-title1">{{item.title}}</h4>
           <h5 class="item-subTitle" v-html="item.subTitle"></h5>

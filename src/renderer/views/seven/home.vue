@@ -24,7 +24,7 @@
       <template v-for="item in homeData.tvData2">
         <a class="block-item block-item1" :title="item.title" @click="goDetail(item.href)">
           <div class="item-poster equalHeight">
-            <img :src="item.poster">
+            <img v-lazy="item.poster">
           </div>
           <h4 class="item-title">{{item.title}}</h4>
           <h5 class="item-subTitle">{{item.subTitle}}</h5>
@@ -36,7 +36,7 @@
       <template v-for="item in homeData.tvData3">
         <a class="block-item block-item2" :title="item.title" @click="goDetail(item.href)">
           <div class="item-poster equalHeight">
-            <img :src="item.poster">
+            <img v-lazy="item.poster">
           </div>
           <h4 class="item-title">{{item.title}}</h4>
           <h5 class="item-subTitle">{{item.subTitle}}</h5>
@@ -48,7 +48,7 @@
       <template v-for="item in homeData.tvData4">
         <a class="block-item block-item1" :title="item.title" @click="goDetail(item.href)">
           <div class="item-poster equalHeight">
-            <img :src="item.poster">
+            <img v-lazy="item.poster">
           </div>
           <h4 class="item-title">{{item.title}}</h4>
         </a>

@@ -31,7 +31,7 @@ function createWindow () {
     webPreferences: {
       webSecurity: true,
       allowRunningInsecureContent: true,
-      devTools: true,
+      devTools: false,
       plugins: true
     }
   })

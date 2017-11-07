@@ -6,7 +6,7 @@
       <div class="detail-item">
         <div class="detail-item-content">
           <div class="center-img center-img1">
-            <img :src="detailData.poster">
+            <img v-lazy="detailData.poster">
           </div>
         </div>
       </div>

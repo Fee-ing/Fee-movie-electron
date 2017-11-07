@@ -5,7 +5,7 @@
       <h1 class="detail-title" v-html="detailData.title"></h1>
       <div class="info-wrapper flexbox">
         <div class="info-left">
-          <img :src="detailData.poster">
+          <img v-lazy="detailData.poster">
         </div>
         <div class="info-right flex1" v-html="detailData.info"></div>
       </div>
@@ -16,7 +16,7 @@
       <div class="detail-item">
         <div class="detail-item-title">影片截图：</div>
         <div class="detail-item-content">
-          <img :src="detailData.screenshot">
+          <img v-lazy="detailData.screenshot">
         </div>
       </div>
       <div class="detail-item">

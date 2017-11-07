@@ -59,7 +59,7 @@ const WEBCONFIG = {
       'home': 'http://www.quzhuanpan.com/source/loadSourceList.do?type=1',
       'href': 'http://www.quzhuanpan.com',
       'path': '/six',
-      'show': true
+      'show': false
     },
     'seven': {
       'name': '人人影视',
@@ -69,7 +69,7 @@ const WEBCONFIG = {
       'home': 'http://www.zimuzu.tv/',
       'href': 'http://www.zimuzu.tv',
       'path': '/seven',
-      'show': true
+      'show': false
     },
     'eight': {
       'name': '韩饭网',

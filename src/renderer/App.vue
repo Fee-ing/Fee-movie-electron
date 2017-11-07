@@ -13,7 +13,7 @@
         </form>
       </div>
       <div class="weblist-wrapper flex1">
-        <template v-for="item in WEBCONFIG.common">
+        <template v-for="item in WEBCONFIG.common" v-if="item.show">
           <a class="weblist-item" :class="{'active': webItem.type === item.type}" @click.stop="changeWebOpt(item)">
             <div class="weblist-item-info verticalbox">
               <img class="weblist-item-icon" :src="item.favicon">
