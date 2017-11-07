@@ -1,7 +1,7 @@
 <template>
   <div class="web-all">
     <home :searchData="searchData" :searchType="searchType" @get-detail="getDetail" @go-page="goPage"></home>
-    <detail1 v-if="type === '1'" :type="type" :detailData="webOneDetail" @go-back="backHome" @done-load="doneLoad"></detail1>
+    <detail1 v-if="type === '1'" :type="type" :detailData="webOneDetail" @go-back="backHome"></detail1>
     <detail2 v-if="type === '2'" :detailData="webEightDetail" @go-back="backHome"></detail2>
   </div>
 </template>
@@ -16,7 +16,6 @@
   export default {
     data () {
       return {
-        isClick: false,
         type: ''
       }
     },
@@ -34,10 +33,9 @@
       })
     },
     methods: {
-      ...mapActions(['isLoadTrue', 'changeRotateDeg', 'loadWebOneDetail', 'searchEight', 'loadWebEightDetail']),
+      ...mapActions(['isLoadTrue', 'changeRotateDeg', 'loadWebOneDetail', 'loadWebEightDetail', 'searchDt', 'searchEight']),
       getDetail (opt) {
         this.isLoadTrue(false)
-        this.isClick = true
         this.type = opt.type
         if (this.type === '1') {
           this.loadWebOneDetail(opt.href)
@@ -48,14 +46,11 @@
       backHome () {
         this.changeRotateDeg(0)
       },
-      goPage (href) {
-        this.searchEight({href: href})
-      },
-      doneLoad () {
-        this.isLoadTrue(true)
-        if (this.isClick) {
-          this.changeRotateDeg(180)
-          this.isClick = false
+      goPage (opt) {
+        if (opt.type === '1') {
+          this.searchDt({href: opt.href})
+        } else if (opt.type === '2') {
+          this.searchEight({href: opt.href})
         }
       }
     },

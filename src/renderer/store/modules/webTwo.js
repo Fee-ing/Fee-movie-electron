@@ -2,6 +2,8 @@ var cheerio = require('cheerio')
 var superagent = require('superagent')
 require('superagent-charset')(superagent)
 
+var WEBCONFIG = require('../../assets/js/webconfig.js')
+
 const state = {
   webTwoData: {
     today: [],
@@ -30,6 +32,52 @@ const mutations = {
   GET_WEBTWO_DETAIL (state, data) {
     state.webTwoDetail = data
   }
+}
+
+let getData = function (err, sres) {
+  let searchData = {
+    data: [],
+    pageData: [],
+    totalPage: '1'
+  }
+  if (!err) {
+    let $ = cheerio.load(sres.text, {decodeEntities: false})
+    $('.list-area .item').each(function (idx, element) {
+      let $element = $(element)
+      searchData.data.push({
+        title: $element.find('.item-title a').html(),
+        subTitle: $element.find('.item-title .category').html(),
+        href: $element.find('.item-title a').attr('href'),
+        download: $element.find('.item-detail span').eq(0).find('a').attr('href'),
+        downloadType: $element.find('.item-detail span').eq(0).find('a').html(),
+        time: $element.find('.item-detail span').eq(1).html().replace(/收录日期:/g, ''),
+        size: $element.find('.item-detail span').eq(2).html().replace(/大小:/g, ''),
+        num: $element.find('.item-detail span').eq(3).html().replace(/文件数:/g, ''),
+        speed: $element.find('.item-detail span').eq(4).html().replace(/速度:/g, '')
+      })
+    })
+    $('.pagination').children().each(function (idx, element) {
+      let $element = $(element)
+      if (idx === 0) {
+        searchData.totalPage = $element.html()
+      }
+      if ($element.is('a')) {
+        searchData.pageData.push({
+          name: $element.html().replace(/»/g, '尾页').replace(/«/g, '首页'),
+          href: $element.attr('href'),
+          isCurrent: false
+        })
+      }
+      if ($element.is('strong')) {
+        searchData.pageData.push({
+          name: $element.html(),
+          href: '',
+          isCurrent: true
+        })
+      }
+    })
+  }
+  return searchData
 }
 
 const actions = {
@@ -129,6 +177,27 @@ const actions = {
         commit('CHANGE_ISLOAD', true)
         commit('CHANGE_ROTATEDEG', 180)
       })
+  },
+  searchDt ({ commit, dispatch, rootState, state }, options) {
+    return new Promise((resolve, reject) => {
+      if (options.href) {
+        superagent.get(options.href)
+          .end(function (err, sres) {
+            let searchData = getData(err, sres)
+            commit('GETSEARCHDT', searchData)
+            resolve(searchData)
+          })
+      } else {
+        superagent.post(WEBCONFIG.search.dt.search)
+          .send({keyword: options.keywords})
+          .type('form')
+          .end(function (err, sres) {
+            let searchData = getData(err, sres)
+            commit('GETSEARCHDT', searchData)
+            resolve(searchData)
+          })
+      }
+    })
   }
 }
 

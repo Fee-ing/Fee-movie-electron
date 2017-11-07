@@ -9,8 +9,6 @@ import webTwo from './modules/webTwo'
 import webThree from './modules/webThree'
 import webFour from './modules/webFour'
 import webFive from './modules/webFive'
-import webSix from './modules/webSix'
-import webSeven from './modules/webSeven'
 import webEight from './modules/webEight'
 
 Vue.use(Vuex)
@@ -26,8 +24,6 @@ export default new Vuex.Store({
     webThree,
     webFour,
     webFive,
-    webSix,
-    webSeven,
     webEight
   }
 })

@@ -23,16 +23,12 @@ function createWindow () {
     height: 700,
     width: 1100,
     useContentSize: true,
-    // transparent: true,
-    frame: true,
+    frame: false,
     resizable: false,
     fullscreen: false,
     fullscreenable: false,
     webPreferences: {
-      webSecurity: true,
-      allowRunningInsecureContent: true,
-      devTools: false,
-      plugins: true
+      devTools: true
     }
   })
 
@@ -59,6 +55,10 @@ app.on('activate', () => {
 
 ipc.on('close-window', (event, arg) => {
   app.quit()
+})
+
+ipc.on('hide-window', () => {
+  mainWindow.minimize()
 })
 /**
  * Auto Updater

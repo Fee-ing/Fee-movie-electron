@@ -22,7 +22,7 @@
   },
   "build": {
     "productName": "FeeMovie",
-    "appId": "org.yrq110.dod",
+    "appId": "org.fee.movie",
     "directories": {
       "output": "build"
     },

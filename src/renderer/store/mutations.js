@@ -23,8 +23,8 @@ const mutations = {
   [types.GETSEARCHONE] (state, data) {
     state.searchData.searchOneData = data
   },
-  [types.GETSEARCHSIX] (state, data) {
-    state.searchData.searchSixData = data
+  [types.GETSEARCHDT] (state, data) {
+    state.searchData.searchDtData = data
   },
   [types.GETSEARCHEIGHT] (state, data) {
     state.searchData.searchEightData = data
@@ -32,7 +32,7 @@ const mutations = {
   [types.INIT_SEARCHDATA] (state) {
     state.searchData = {
       searchOneData: [],
-      searchSixData: [],
+      searchDtData: null,
       searchEightData: null
     }
   }

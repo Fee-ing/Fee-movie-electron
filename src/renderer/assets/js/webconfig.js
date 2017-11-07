@@ -1,25 +1,23 @@
 const WEBCONFIG = {
   'common': {
-    'one': {
-      'name': '80s电影网',
-      'favicon': 'http://www.80s.tw/favicon.ico',
-      'desc': '高清手机电影迅雷下载_最新MP4电视剧磁力下载',
-      'type': '1',
-      'home': 'https://www.80s.tt/',
-      'home2': 'http://www.80s.tw/',
-      'href': 'https://www.80s.tt',
-      'href2': 'http://www.80s.tw',
-      'path': '/one',
-      'show': true
-    },
     'two': {
       'name': 'LOL电影天堂',
       'favicon': 'http://www.loldytit.com/favicon.ico',
       'desc': '最新电影迅雷下载_电影天堂_全集网_高清首发',
-      'type': '2',
+      'type': '1',
       'home': 'http://www.loldytit.com/',
       'href': 'http://www.loldytit.com',
       'path': '/two',
+      'show': true
+    },
+    'one': {
+      'name': '80s电影网',
+      'favicon': 'http://www.80s.tw/favicon.ico',
+      'desc': '高清手机电影迅雷下载_最新MP4电视剧磁力下载',
+      'type': '2',
+      'home': 'https://www.80s.tt/',
+      'href': 'https://www.80s.tt',
+      'path': '/one',
       'show': true
     },
     'three': {
@@ -51,26 +49,6 @@ const WEBCONFIG = {
       'path': '/five',
       'show': true
     },
-    'six': {
-      'name': '去转盘网',
-      'favicon': 'http://www.quzhuanpan.com/media/image/favicon.ico',
-      'desc': '影视列表|网盘搜索引擎|网盘资源搜索下载网站！',
-      'type': '6',
-      'home': 'http://www.quzhuanpan.com/source/loadSourceList.do?type=1',
-      'href': 'http://www.quzhuanpan.com',
-      'path': '/six',
-      'show': false
-    },
-    'seven': {
-      'name': '人人影视',
-      'favicon': 'http://www.zimuzu.tv/favicon.ico',
-      'desc': '字幕组下载站|为您翻译最新最快的海外影视剧,ZiMuZu.tv',
-      'type': '7',
-      'home': 'http://www.zimuzu.tv/',
-      'href': 'http://www.zimuzu.tv',
-      'path': '/seven',
-      'show': false
-    },
     'eight': {
       'name': '韩饭网',
       'favicon': 'http://www.hanfan.cc/favicon.ico',
@@ -86,9 +64,8 @@ const WEBCONFIG = {
       'search': 'https://www.80s.tt/search',
       'href': 'https://www.80s.tt'
     },
-    'six': {
-      'search': 'http://www.quzhuanpan.com/source/search.action',
-      'href': 'http://www.quzhuanpan.com'
+    'dt': {
+      'search': 'http://diggbt.fyi/',
     },
     'eight': {
       'search': 'http://www.hanfan.cc/'

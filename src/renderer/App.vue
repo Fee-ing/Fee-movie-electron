@@ -3,13 +3,13 @@
     <div class="app-left flexbox flex-column">
       <div class="search-wrapper centerVertical">
         <form class="search-form flexbox">
-          <select class="search-select" v-model="searchType">
-            <option value="1">默认搜索</option>
-            <option value="2">韩饭搜索</option>
-            <!-- <option value="3">老司机搜索</option> -->
+          <select class="search-select flex1" v-model="searchType">
+            <option value="1">默认</option>
+            <option value="2">DiggBT</option>
+            <option value="3">韩饭</option>
           </select>
-          <input type="text" name="keywords" class="search-input flex1" placeholder="想看什么就搜一搜吧" v-model="keywords">
-          <a class="search-btn centerVertical" @click="searchOpt">搜索</a>
+          <input type="text" name="keywords" class="search-input" placeholder="想看什么就搜一搜吧" v-model="keywords">
+          <a class="search-btn centerVertical flex1" @click="searchOpt">搜索</a>
         </form>
       </div>
       <div class="weblist-wrapper flex1">
@@ -26,6 +26,10 @@
     </div>
     <div class="app-right flexbox flex-column">
       <div class="webtitle-wrapper border-bottom">
+        <div class="header">
+          <a class="header-btn close" @click="closeWindow">x</a>
+          <a class="header-btn small" @click="hideWindow">_</a>
+        </div>
         <h2 class="webtitle" v-if="title">{{title}}</h2>
         <h2 class="webtitle" v-else>{{webItem.name}}<span>{{webItem.desc}}</span></h2>
       </div>
@@ -45,8 +49,11 @@
 
 <script>
   import { mapGetters, mapActions, mapMutations } from 'vuex'
+  import { ipcRenderer } from 'electron'
 
   import WEBCONFIG from './assets/js/webconfig.js'
+  import './assets/js/clipboard.min.js'
+  import FUNC from './assets/js/common.js'
 
   export default {
     name: 'app',
@@ -60,8 +67,29 @@
     computed: {
       ...mapGetters(['title', 'webItem', 'isLoad', 'rotateDeg'])
     },
+    mounted () {
+      let that = this
+
+      document.onkeydown = function (event) {
+        var e = event || window.event || arguments.callee.caller.arguments[0]
+        if (e && e.keyCode==13) {
+          that.searchOpt()
+        }
+      }
+
+      let clipboard = new Clipboard('.copy-btn')
+
+      clipboard.on('success', function (e) {
+          FUNC.toast('复制链接成功')
+          e.clearSelection()
+      })
+
+      clipboard.on('error', function (e) {
+          FUNC.toast('复制链接失败')
+      })
+    },
     methods: {
-      ...mapActions(['isLoadTrue', 'changeRotateDeg', 'searchOne', 'searchSix', 'searchEight']),
+      ...mapActions(['isLoadTrue', 'changeRotateDeg', 'searchOne', 'searchEight', 'searchDt']),
       ...mapMutations({
         changeWebItem: 'CHANGE_WEBITEM',
         changeTitle: 'CHANGE_TITLE',
@@ -80,26 +108,38 @@
       },
       searchOpt () {
         if (this.keywords) {
+          this.changeRotateDeg(0)
           this.isLoadTrue(false)
           this.changeKeywords(this.keywords)
           this.changeSearchType(this.searchType)
+          this.$router.push({path: '/search'})
           if (this.searchType === '1') {
             this.changeTitle('默认搜索结果')
             Promise
-            .all([this.searchOne(this.keywords), this.searchSix({keywords: this.keywords, page: 1})])
+            .all([this.searchOne(this.keywords)])
             .then((results) => {
               this.isLoadTrue(true)
-              this.$router.push({path: '/search'})
             })
           } else if (this.searchType === '2') {
+            this.changeTitle('DT搜索结果')
+            this.searchDt({keywords: this.keywords})
+            .then((results) => {
+              this.isLoadTrue(true)
+            })
+          } else if (this.searchType === '3') {
             this.changeTitle('韩饭搜索结果')
             this.searchEight({keywords: this.keywords})
             .then((results) => {
               this.isLoadTrue(true)
-              this.$router.push({path: '/search'})
             })
           }
         }
+      },
+      closeWindow () {
+        ipcRenderer.send('close-window')
+      },
+      hideWindow () {
+        ipcRenderer.send('hide-window')
       }
     }
   }
@@ -115,10 +155,13 @@ html, body, #app{
 #app{
   .app-left{
     width: 300px;
+    padding: 10px 0;
     background-color: #ECEAE8;
     .search-wrapper{
       height: 70px;
+      padding: 0 15px;
       .search-form{
+        width: 100%;
         height: 40px;
         border: 1px solid #ccc;
         .search-select, .search-input{
@@ -128,11 +171,11 @@ html, body, #app{
           outline: none;
           background-color: transparent;
         }
-        .search-input{
-          width: 150px;
+        .search-select{
+          width: 80px;
         }
         .search-btn{
-          padding: 0 10px;
+          width: 40px;
           font-size: 12px;
           &:hover{
             color: #000;
@@ -181,7 +224,40 @@ html, body, #app{
     background-color: #f5f5f5;
     .webtitle-wrapper{
       position: relative;
-      padding: 15px;
+      padding: 25px 15px 15px;
+      .header{
+        position: absolute;
+        width: 100%;
+        height: 25px;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        overflow: hidden;
+        .header-btn{
+          float: right;
+          width: 40px;
+          height: 100%;
+          text-align: center;
+          color: #444;
+          &.close{
+            line-height: 25px;
+            &:hover{
+              background-color: #444;
+              color: #fff;
+            }
+          }
+          &.small{
+            width: 30px;
+            font-weight: bold;
+            line-height: 10px;
+            font-size: 18px;
+            &:hover{
+              background-color: #999;
+              color: #fff;
+            }
+          }
+        }
+      }
       h2 span{
         font-weight: normal;
         font-size: 13px;

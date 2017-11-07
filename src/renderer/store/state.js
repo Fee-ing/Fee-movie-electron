@@ -1,21 +1,17 @@
 const state = {
   title: '',
   webItem: {
-    name: '80s电影网',
+    name: 'LOL电影天堂',
     type: '1',
-    desc: '高清手机电影迅雷下载_最新MP4电视剧磁力下载',
-    home: 'https://www.80s.tt/',
-    home2: 'http://www.80s.tw/',
-    href: 'https://www.80s.tt',
-    href2: 'http://www.80s.tw',
-    search: 'https://www.80s.tt/search',
-    search2: 'http://www.80s.tw/search'
+    desc: '最新电影迅雷下载_电影天堂_全集网_高清首发',
+    home: 'http://www.loldytit.com/',
+    href: 'http://www.loldytit.com'
   },
   isLoad: false,
   rotateDeg: 0,
   searchData: {
     searchOneData: [],
-    searchSixData: [],
+    searchDtData: null,
     searchEightData: null
   },
   keywords: '',

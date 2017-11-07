@@ -14,15 +14,13 @@ const router = new VueRouter({
   }, {
     path: '/five', component: resolve => require(['../views/five/index'], resolve)
   }, {
-    path: '/six', component: resolve => require(['../views/six/index'], resolve)
-  }, {
-    path: '/seven', component: resolve => require(['../views/seven/index'], resolve)
-  }, {
     path: '/eight', component: resolve => require(['../views/eight/index'], resolve)
   }, {
-    path: '/', redirect: '/one'
+    path: '/search', component: resolve => require(['../views/search/index'], resolve)
   }, {
-    path: '*', redirect: '/one'
+    path: '/', redirect: '/two'
+  }, {
+    path: '*', redirect: '/two'
   }]
 })
 
