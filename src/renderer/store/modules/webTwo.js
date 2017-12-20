@@ -38,7 +38,8 @@ let getData = function (err, sres) {
   let searchData = {
     data: [],
     pageData: [],
-    totalPage: '1'
+    totalPage: '1',
+    resultType: '1'
   }
   if (!err) {
     let $ = cheerio.load(sres.text, {decodeEntities: false})
@@ -69,6 +70,54 @@ let getData = function (err, sres) {
         })
       }
       if ($element.is('strong')) {
+        searchData.pageData.push({
+          name: $element.html(),
+          href: '',
+          isCurrent: true
+        })
+      }
+    })
+  }
+  return searchData
+}
+
+let getData1 = function (err, sres) {
+  let searchData = {
+    data: [],
+    pageData: [],
+    resultType: '2'
+  }
+  if (!err) {
+    let $ = cheerio.load(sres.text, {decodeEntities: false})
+    $('.search-item').each(function (idx, element) {
+      let $element = $(element)
+      let arr = []
+      $element.find('.download').each(function (idx, ele) {
+        arr.push({
+          href: $(ele).attr('href'),
+          name: $(ele).html()
+        })
+      })
+      searchData.data.push({
+        title: $element.find('.item-title a').html(),
+        subTitle: $element.find('.item-list p').html(),
+        download: arr,
+        time: $element.find('.item-bar span').eq(0).find('b').html(),
+        active: $element.find('.item-bar span').eq(1).find('b').html(),
+        last: $element.find('.item-bar span').eq(2).find('b').html(),
+        size: $element.find('.item-bar span').eq(3).find('b').html()        
+      })
+    })
+    $('.bottom-pager').children().each(function (idx, element) {
+      let $element = $(element)
+      if ($element.is('a')) {
+        searchData.pageData.push({
+          name: $element.html(),
+          href: encodeURI(WEBCONFIG.search.dt.home + $element.attr('href')),
+          isCurrent: false
+        })
+      }
+      if ($element.is('span')) {
         searchData.pageData.push({
           name: $element.html(),
           href: '',
@@ -183,7 +232,12 @@ const actions = {
       if (options.href) {
         superagent.get(options.href)
           .end(function (err, sres) {
-            let searchData = getData(err, sres)
+            let searchData = null
+            if (options.href.indexOf('btanv.com') >= 0) {
+              searchData = getData1(err, sres)
+            } else {
+              searchData = getData(err, sres)
+            }
             commit('GETSEARCHDT', searchData)
             resolve(searchData)
           })
@@ -193,8 +247,18 @@ const actions = {
           .type('form')
           .end(function (err, sres) {
             let searchData = getData(err, sres)
-            commit('GETSEARCHDT', searchData)
-            resolve(searchData)
+            if (searchData.data.length <= 0) {
+              superagent.get(WEBCONFIG.search.dt.search1)
+                .query({kw: options.keywords})
+                .end(function (err, sres) {
+                  let searchData1 = getData1(err, sres)
+                  commit('GETSEARCHDT', searchData1)
+                  resolve(searchData1)
+                })
+            } else {
+              commit('GETSEARCHDT', searchData)
+              resolve(searchData)
+            }
           })
       }
     })

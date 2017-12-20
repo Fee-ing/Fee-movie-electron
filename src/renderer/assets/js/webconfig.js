@@ -66,6 +66,8 @@ const WEBCONFIG = {
     },
     'dt': {
       'search': 'http://diggbt.fyi/',
+      'search1': 'http://www.btanv.com/q',
+      'home': 'http://www.btanv.com'
     },
     'eight': {
       'search': 'http://www.hanfan.cc/'

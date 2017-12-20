@@ -15,47 +15,88 @@
       </div>
     </template>
     <template v-else-if="searchType === '2' && searchData.searchDtData && searchData.searchDtData.data.length > 0">
-      <h2 class="movie-title">DiggBT搜索结果</h2>
-      <div class="list-wrapper">
-        <table border="1" cellspacing="0" cellpadding="0">
-          <thead>
-            <tr>
-              <th class="width250">资源名称</th>
-              <th>资源类型</th>
-              <th>大小</th>
-              <th>文件数</th>
-              <th>下载速度</th>
-              <th>更新日期</th>
-              <th>下载类型</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in searchData.searchDtData.data">
-              <td class="width250" v-html="item.title"></td>
-              <td v-html="item.subTitle"></td>
-              <td v-html="item.size"></td>
-              <td v-html="item.num"></td>
-              <td v-html="item.speed"></td>
-              <td v-html="item.time"></td>
-              <td v-html="item.downloadType"></td>
-              <td>
-                <a class="btn" :href="item.download">点击下载</a>
-                <a :data-clipboard-text="item.download" class="btn copy-btn">复制链接</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="pagination-wrapper">
-        <div class="pagination">
-          <template v-for="item in searchData.searchDtData.pageData">
-            <a class="pagination-item active" v-if="item.isCurrent">{{item.name}}</a>
-            <a class="pagination-item" @click="goPage(item.href, '1')" v-else>{{item.name}}</a>
-          </template>
-          <a class="pagination-item">{{searchData.searchDtData.totalPage}}</a>
+      <template v-if="searchData.searchDtData.resultType === '1'">
+        <h2 class="movie-title">DiggBT搜索结果</h2>
+        <div class="list-wrapper">
+          <table border="1" cellspacing="0" cellpadding="0">
+            <thead>
+              <tr>
+                <th class="width250">资源名称</th>
+                <th>资源类型</th>
+                <th>大小</th>
+                <th>文件数</th>
+                <th>下载速度</th>
+                <th>更新日期</th>
+                <th>下载类型</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in searchData.searchDtData.data">
+                <td class="width250" v-html="item.title"></td>
+                <td v-html="item.subTitle"></td>
+                <td v-html="item.size"></td>
+                <td v-html="item.num"></td>
+                <td v-html="item.speed"></td>
+                <td v-html="item.time"></td>
+                <td v-html="item.downloadType"></td>
+                <td>
+                  <a class="btn" :href="item.download">点击下载</a>
+                  <a :data-clipboard-text="item.download" class="btn copy-btn">复制链接</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
+        <div class="pagination-wrapper">
+          <div class="pagination">
+            <template v-for="item in searchData.searchDtData.pageData">
+              <a class="pagination-item active" v-if="item.isCurrent">{{item.name}}</a>
+              <a class="pagination-item" @click="goPage(item.href, '1')" v-else>{{item.name}}</a>
+            </template>
+            <a class="pagination-item">{{searchData.searchDtData.totalPage}}</a>
+          </div>
+        </div>
+      </template>
+      <template v-if="searchData.searchDtData.resultType === '2'">
+        <h2 class="movie-title">DiggBT搜索结果</h2>
+        <div class="list-wrapper">
+          <table border="1" cellspacing="0" cellpadding="0">
+            <thead>
+              <tr>
+                <th class="width250">资源名称</th>
+                <th>收录时间</th>
+                <th>活跃热度</th>
+                <th>最后活跃</th>
+                <th>文件大小</th>
+                <th>下载</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in searchData.searchDtData.data">
+                <td class="width250" v-html="item.title"></td>
+                <td v-html="item.time"></td>
+                <td v-html="item.active"></td>
+                <td v-html="item.last"></td>
+                <td v-html="item.size"></td>
+                <td>
+                  <template v-for="i in item.download">
+                    <a class="btn" :href="i.href">{{i.name}}</a>
+                  </template>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination-wrapper">
+          <div class="pagination">
+            <template v-for="item in searchData.searchDtData.pageData">
+              <a class="pagination-item active" v-if="item.isCurrent">{{item.name}}</a>
+              <a class="pagination-item" @click="goPage(item.href, '1')" v-else>{{item.name}}</a>
+            </template>
+          </div>
+        </div>
+      </template>
     </template>
     <template v-else-if="searchType === '3' && searchData.searchEightData && searchData.searchEightData.data.length > 0">
       <h2 class="movie-title">韩饭网搜索结果</h2>
